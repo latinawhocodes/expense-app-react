@@ -4,7 +4,7 @@ import GirlFancy1 from "../assets/GirlFancy1.png";
 
 const Intro= () => { 
     return (
-        <div class="intro">
+        <div className="intro">
             <div>
                 <h1>
                     Take Control of <span className="accent"> Your Money </span>
