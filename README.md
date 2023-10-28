@@ -12,5 +12,8 @@ In the new directory,
 To run the app: 
     npm run dev
 
+Other Items to Install:
+    npm install @heroicons/react
+    npm install react-toastify
 --------------------------------------------|
 

@@ -1,7 +1,7 @@
 import { Outlet, useLoaderData } from "react-router-dom";
 import { fetchData } from "../helpers"
 
-import chibi_avatar1 from "../assets/chibi_avatar1.png";
+import wave from "../assets/wave.svg";
 import Nav from "../components/Nav";
 
 //loader
@@ -19,8 +19,7 @@ const Main = () => {
             <main>
                 <Outlet />
             </main>
-            <img src={chibi_avatar1} alt="Pretty Girl with Brown Hair" />
-            <h1>Main</h1>
+            <img src={wave} size={50}/>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import { fetchData } from "../helpers"
+import Intro from "../components/Intro";
 
 //loader function
 export function dashboardLoader() {
@@ -11,10 +12,9 @@ const Dashboard = () => {
     const { userName } = useLoaderData();    //Hook, allows you to use loader in react router
 
     return(
-        <div>
-            <h1>{userName}</h1>
-            Dashboard
-        </div>
+        <>
+            { userName ? (<p>{userName}</p>) : <Intro /> }
+        </>
     )
 }
 
