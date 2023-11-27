@@ -1,6 +1,8 @@
 import { Form } from "react-router-dom"
 import { UserPlusIcon } from '@heroicons/react/24/solid';
 import BobaCat1 from "../assets/BobaCat1.png";
+import PlantCat1 from "../assets/PlantCat1.png";
+
 
 const Intro= () => { 
     return (
@@ -10,7 +12,8 @@ const Intro= () => {
                     Save <span className="accent"> Meow </span> Today
                 </h1>
                 <p>
-                    Personal budgeting is the key to having more money for treats and toys.
+                    Meow money lets you keep track of your expenses and personal budget so you can track and meet your goals. More saving means more treats! 
+                    <span className="accent"> Meow </span>
                 </p>
 
                 <Form method="post">              
@@ -23,7 +26,7 @@ const Intro= () => {
                     </button>
                 </Form>
             </div>
-            <img src={BobaCat1} width={300}></img>
+            <img src={PlantCat1} width={300}></img>
         </div>
     )
 }

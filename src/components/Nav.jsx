@@ -1,12 +1,13 @@
 import { Form, NavLink } from "react-router-dom"
-import BlueCat1 from "../assets/BlueCat1.png";
+import PlantCat1 from "../assets/PlantCat1.png";
+import BobaCat2 from "../assets/BobaCat2.png";
 import { TrashIcon } from '@heroicons/react/24/solid';
 
 const Nav = ({userName}) => { 
     return (
         <nav>
             <NavLink to="/" aria-label="Go to homepage">
-                <img src={BlueCat1} alt="cat wearing a witch hat" height={60} />
+                <img src={BobaCat2} alt="cat wearing a witch hat" height={40} />
                 <span>Meow Money</span>
             </NavLink>
             {
