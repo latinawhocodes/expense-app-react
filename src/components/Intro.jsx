@@ -1,16 +1,16 @@
 import { Form } from "react-router-dom"
 import { UserPlusIcon } from '@heroicons/react/24/solid';
-import GirlFancy1 from "../assets/GirlFancy1.png";
+import BobaCat1 from "../assets/BobaCat1.png";
 
 const Intro= () => { 
     return (
         <div className="intro">
             <div>
                 <h1>
-                    Take Control of <span className="accent"> Your Money </span>
+                    Save <span className="accent"> Meow </span> Today
                 </h1>
                 <p>
-                    Personal budgeting is the secret to financial freedom. Start your journey today.
+                    Personal budgeting is the key to having more money for treats and toys.
                 </p>
 
                 <Form method="post">              
@@ -23,7 +23,7 @@ const Intro= () => {
                     </button>
                 </Form>
             </div>
-            <img src={GirlFancy1} width={600}></img>
+            <img src={BobaCat1} width={300}></img>
         </div>
     )
 }
