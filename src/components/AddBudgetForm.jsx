@@ -7,10 +7,12 @@ const AddBudgetForm = () => {
     const isSubmitting = fetcher.state == "submitting";
 
     const formRef = useRef();
+    const focusRef = useRef();
 
     useEffect(() => {
         if (!isSubmitting) {
             formRef.current.reset()
+            focusRef.current.focus()
         }
     }, [isSubmitting])
 
@@ -30,6 +32,7 @@ const AddBudgetForm = () => {
                     id="newBudget"
                     placeholder="e.g., Catnip"
                     required
+                    ref={focusRef}
                     />
                 </div>
                 <div className="grid-xs">
@@ -46,7 +49,7 @@ const AddBudgetForm = () => {
                 </div>
                 
                 <input type="hidden" name="_action" value="createBudget"/>
-                <button type="submit" className="btn btn--dark">
+                <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
                     <span>Create Budget</span>
                     <CurrencyDollarIcon width={20}/>
                 </button>
