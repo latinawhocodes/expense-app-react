@@ -1,66 +1,99 @@
 import { useLoaderData } from "react-router-dom";
-import { createBudget, fetchData } from "../helpers";
 import { toast } from "react-toastify";
 import Intro from "../components/Intro";
 import AddBudgetForm from "../components/AddBudgetForm";
+import AddExpenseForm from "../components/AddExpenseForm";
+import BudgetItem from "../components/BudgetItem";
+import { createBudget, createExpense, fetchData } from "../helpers"
 
-//loader function
 export function dashboardLoader() {
-    const userName = fetchData("userName");
-    const budgets = fetchData("budgets");
-    return { userName, budgets }
+  const userName = fetchData("userName");
+  const budgets = fetchData("budgets");
+  return { userName, budgets }
 }
 
-export async function dashboardAction({request}) {
-    const data = await request.formData();
-    const {_action,...values} = Object.fromEntries(data);
+// action
+export async function dashboardAction({ request }) {
+  await waait();
 
-    //newUser action
-    if (_action == "newUser") {
-        try {
-            localStorage.setItem("userName", JSON.stringify(values.userName));
-            return toast.success(`Welcome, ${values.userName} `);
-        } catch (e) {
-            throw new Error("There was a problem creating your account.")
-        }
-    }
+  const data = await request.formData();
+  const { _action, ...values } = Object.fromEntries(data)
 
-    //addBudget action
-    if (_action == "createBudget") {
-        try {
-            //create budget
-            createBudget({
-                name: values.newBudget,
-                amount: values.newBudgetAmount
-            })
-            return toast.success("Budget created!")
-        } catch (e) {
-            throw new Error("There was a problem creating your budget.")
-        }
+  // new user submission
+  if (_action === "newUser") {
+    try {
+      localStorage.setItem("userName", JSON.stringify(values.userName))
+      return toast.success(`Welcome, ${values.userName}`)
+    } catch (e) {
+      throw new Error("There was a problem creating your account.")
     }
+  }
+
+  if (_action === "createBudget") {
+    try {
+      createBudget({
+        name: values.newBudget,
+        amount: values.newBudgetAmount,
+      })
+      return toast.success("Budget created!")
+    } catch (e) {
+      throw new Error("There was a problem creating your budget.")
+    }
+  }
+
+  if (_action === "createExpense") {
+    try {
+      createExpense({
+        name: values.newExpense,
+        amount: values.newExpenseAmount,
+        budgetId: values.newExpenseBudget
+      })
+      return toast.success(`Expense ${values.newExpense} created!`)
+    } catch (e) {
+      throw new Error("There was a problem creating your expense.")
+    }
+  }
 }
 
 const Dashboard = () => {
-    const { userName, budgets } = useLoaderData(); //Hook, allows you to use loader in react router
+  const { userName, budgets } = useLoaderData()
 
-    return(
-        <>
-            { userName ? (
-                <div className="dashboard">
-                    <h1>Welcome back, <span className="accent"> {userName} </span></h1>
-
-                    <div className="grid-sm">
-                        {/* {budgets ? () : ()} */}
-                        <div className="grid-lg">
-                            <div className="flex-lg">
-                                <AddBudgetForm />
-                            </div>
-                        </div>
+  return (
+    <>
+      {userName ? (
+        <div className="dashboard">
+          <h1>Welcome back, <span className="accent">{userName}</span></h1>
+          <div className="grid-sm">
+            {
+              budgets && budgets.length > 0
+                ? (
+                  <div className="grid-lg">
+                    <div className="flex-lg">
+                      <AddBudgetForm />
+                      <AddExpenseForm budgets={budgets} />
                     </div>
-                </div>) : <Intro /> 
+                    <h2>Existing Budgets</h2>
+                    <div className="budgets">
+                      {
+                        budgets.map((budget) => (
+                          <BudgetItem key={budget.id} budget={budget} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                )
+                : (
+                  <div className="grid-sm">
+                    <p>Personal budgeting is the secret to financial freedom.</p>
+                    <p>Create a budget to get started!</p>
+                    <AddBudgetForm />
+                  </div>
+                )
             }
-        </>
-    )
+          </div>
+        </div>
+      ) : <Intro />}
+    </>
+  )
 }
-
 export default Dashboard
